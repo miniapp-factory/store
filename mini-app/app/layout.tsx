@@ -1,4 +1,4 @@
-import { CartProvider } from "@/components/context/cart-context";
+import { CartProvider } from "../components/context/cart-context";
 import Header from "@/components/header";
 
 export const metadata = {
