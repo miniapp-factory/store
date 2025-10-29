@@ -2,80 +2,22 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "./ui/drawer";
-import { title } from "@/lib/metadata";
+import { CartSidebar } from "@/components/ui/cart-sidebar";
 
-const pages = [
-  {
-    label: (
-      <div className="flex place-items-center gap-2">
-        <img
-          className="size-[40px]"
-          src="/icon.png"
-          alt="icon"
-          width={40}
-          height={40}
-        />
-        <span className="text-xl">{title}</span>
-      </div>
-    ),
-    href: "/",
-  },
-];
-
-export function Header() {
+export default function Header() {
   return (
-    <>
-      <header className="sticky flex place-items-center gap-4 border-b p-4 max-md:hidden">
-        {pages.map((page, i) => (
-          <Link key={i} href={page.href}>
-            {page.label}
-          </Link>
-        ))}
-      </header>
-      <header className="sticky flex place-content-between border-b p-4 md:hidden">
-        <Link href="/">{pages.find((page) => page.href === "/")?.label}</Link>
-        {pages.length > 1 && (
-          <Drawer>
-            <DrawerTrigger>
-              <Menu />
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader className="hidden">
-                <DrawerTitle>Navigation Menu</DrawerTitle>
-                <DrawerDescription>Navigate to other pages</DrawerDescription>
-              </DrawerHeader>
-              <DrawerFooter>
-                <div className="flex flex-col place-content-center gap-4">
-                  {pages
-                    .map((page) =>
-                      page.href === "/"
-                        ? {
-                            ...page,
-                            label: <span className="text-lg">Home</span>,
-                          }
-                        : page
-                    )
-                    .map((page, i) => (
-                      <DrawerClose key={i}>
-                        <Link href={page.href}>{page.label}</Link>
-                      </DrawerClose>
-                    ))}
-                </div>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        )}
-      </header>
-    </>
+    <header className="flex items-center justify-between py-4 px-6 border-b">
+      <Link href="/" className="text-2xl font-bold">
+        Mini App Store
+      </Link>
+      <nav className="hidden md:flex gap-4">
+        <Link href="/">Home</Link>
+        <Link href="/store">Store</Link>
+      </nav>
+      <div className="flex items-center gap-2">
+        <Menu className="h-6 w-6 md:hidden" />
+        <CartSidebar />
+      </div>
+    </header>
   );
 }

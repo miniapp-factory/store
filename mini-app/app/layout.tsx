@@ -1,35 +1,23 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import { MiniAppProvider } from "@/components/context/miniapp-provider";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
-import { description, title } from "@/lib/metadata";
+import { CartProvider } from "@/components/context/cart-context";
+import Header from "@/components/header";
 
-const inter = localFont({
-  src: "./InterVariable.ttf",
-});
-
-export const metadata: Metadata = {
-  title,
-  description,
+export const metadata = {
+  title: "Farcaster Mini App Store",
+  description: "Browse and buy the best Farcaster mini apps",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <MiniAppProvider>
-          <div className="font-sans min-h-screen flex flex-col place-content-between">
-            <Header />
-            {children}
-            <Footer />
-          </div>
-        </MiniAppProvider>
+      <body className="bg-background text-foreground">
+        <CartProvider>
+          <Header />
+          <main>{children}</main>
+        </CartProvider>
       </body>
     </html>
   );
